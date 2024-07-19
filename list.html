@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <script type="text/javascript" src="../lib/jquery.min.js"></script>
+    <script type="text/javascript" src="../lib/osql.js"></script>
+
+    <script>
+        osql.requireLogin();//すべてのページに入れる．google認証をして，osql.connect()や，osql.getMe()を使えるようにしてくれる．
+
+        $(document).ready(function () {
+            execSelect();
+        });
+
+        async function execSelect() {
+            var sql = 'select * from Classes';
+            var objects = await osql.connect(sql);
+            console.log(objects);
+            var html = '';
+            html = html + '<table border="1">';
+            for (var i = 0; i < objects.length; i++) {
+                html = html + '<tr>';
+                var object = objects[i];
+                html = html + '<td>' + object.class_name + '</td>';
+                html = html + '<td>' + object.class_day + '</td>';
+                html = html + '<td>' + object.class_time + '</td>';
+                html = html + '<td>' + object.instructor_name + '</td>';
+                html = html + '</tr>';
+            }
+            html = html + '</table>';
+            document.getElementById('class').innerHTML = html;
+        }
+
+        async function button1Pressed() {
+            var sql = `delete from Users where id = ”${userid}”`
+            var objects = await osql.connect(sql);
+            console.log(objects);
+        }
+
+    </script>
+
+</head>
+
+<body>
+    <h1>授業一覧</h1>
+    <p id="class">xxxx</p>
+    <p><a href="usertop.html">UserTOPに戻る</a></p>
+</body>
+
+</html>
