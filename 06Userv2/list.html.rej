@@ -1,0 +1,9 @@
+diff a/06Userv2/list.html b/06Userv2/list.html	(rejected hunks)
+@@ -27,7 +27,6 @@
+                 html = html + '<td>' + object.id + '</td>';
+                 html = html + '<td>' + object.name + '</td>';
+                 html = html + '<td>' + '<a href="update.html?userid=' + object.id + '">変更</a>' + '</td>';
+-                html = html + '<td>' + '<a href="delete from Users where id ="' + object.id + '">削除</a>' + '</td>';
+                 html = html + '</tr>';
+             }
+             html = html + '</table>';

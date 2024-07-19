@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <script type="text/javascript" src="../lib/jquery.min.js"></script>
+    <script type="text/javascript" src="../lib/osql.js"></script>
+
+    <script>
+        osql.requireLogin();//すべてのページに入れる．google認証をして，osql.connect()や，osql.getMe()を使えるようにしてくれる．
+
+        function button1Pressed() {
+            execInsert();
+        }
+
+        async function execInsert() {
+            var class_name = document.getElementById('tf4').value;
+            var class_day = document.getElementById('tf5').value;
+            var class_time = document.getElementById('tf6').value;
+            var instructor_name = document.getElementById('tf7').value;
+
+            var sql = `insert into Classes (class_name, class_day, class_time, instructor_name) values("${class_name}", "${class_day}", "${class_time}", "${instructor_name}");`;
+            var objects = await osql.connect(sql);
+            console.log(objects);
+
+            document.getElementById('class').innerHTML = 'OK';
+        }
+    </script>
+
+</head>
+
+<body>
+    <h1>授業登録</h1>
+    授業名:<input id="tf4" value="" type="varchar(20)">
+    <br>
+    曜日:<input id="tf5" value="" type="varchar(2)">
+    <br>
+    時限:<input id="tf6" value="" type="varchar(2)">
+    <br>
+    担当教員名:<input id="tf7" value="" type="varchar(20)">
+    <button onclick="button1Pressed()">登録</button>
+    <br>
+    <p id="class"></p>
+    <p><a href="usertop.html">UserTOPに戻る</a></p>
+</body>
+
+</html>
